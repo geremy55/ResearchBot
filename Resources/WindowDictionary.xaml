@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="PassWindowTemplate" TargetType="Window">
+        <Border CornerRadius="15"  Background="#353535"
+                    BorderBrush="DarkGray" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!--Заголовок-->
+                <TextBlock Text="{TemplateBinding Title}" FontWeight="Bold" HorizontalAlignment="Center"
+                               Foreground="DarkGray"
+                    />
+                <!--Основное содержание-->
+                <Border Grid.Row="1">
+                    <AdornerDecorator>
+                        <ContentPresenter />
+                    </AdornerDecorator>
+                </Border>
+
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="MainWndStyle" TargetType="Grid">
+        <Setter Property="Background" Value="#292929"/>
+    </Style>
+</ResourceDictionary>

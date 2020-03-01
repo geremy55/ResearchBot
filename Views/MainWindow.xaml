@@ -1,0 +1,90 @@
+﻿<Window x:Class="ResearchBot.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ResearchBot"
+               
+        MinHeight="600" MinWidth="600" WindowStyle="None"
+        ResizeMode="CanMinimize" 
+        WindowStartupLocation="CenterScreen" Title="ResearchBot"
+        Background="#191919" Width="500" Height="500"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown" 
+        >
+    <Window.Template>
+        <ControlTemplate TargetType="Window">
+            <Border Name="newBorder" Background="#353535"
+                    BorderBrush="DarkGray" BorderThickness="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!--Заголовок-->
+                    <TextBlock Text="{TemplateBinding Title}" FontSize="18"
+                      Foreground="Gainsboro"  Margin="10,5,0,0" HorizontalAlignment="Left"
+                    />
+                    <Button x:Name="HideButton" Content="-" Click="HideButton_Click"                             
+                              Style="{StaticResource ButtonMenu}" ToolTip="Свернуть окно"
+                            HorizontalAlignment="Right" Margin="0,3,35,0"/>
+                    <Button x:Name="CloseButton" Content="X" Click="CloseButton_Click"                            
+                            Style="{StaticResource ButtonMenu}" ToolTip="Закрыть окно"
+                            HorizontalAlignment="Right" Margin="0,3,5,0" />
+                    <!--Основное содержание-->
+                    <Border Grid.Row="1">
+                        <AdornerDecorator>
+                            <ContentPresenter />
+                        </AdornerDecorator>
+                    </Border>
+                    <!--Элемент захвата и изменения размера - работает только для прямоугольных окон-->
+                    <ResizeGrip Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                            Visibility="Collapsed" IsTabStop="False" />
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </Window.Template>
+    <Grid Style="{StaticResource MainWndStyle}" Margin="3" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <StackPanel Margin="10,0,0,0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+                    <Label Foreground="White" Margin="10,0,0,0">Аккаунт</Label>
+                    <Label Foreground="White" Margin="10,0,0,0"></Label>                    
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <ComboBox Width="120" >
+                    </ComboBox>
+                </StackPanel>                
+            </StackPanel>
+                       
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <Label Content="Кол-во ставок" Foreground="White" />
+                <TextBox  x:Name="count" Margin="10,0,10,0" Width="50" Text="{Binding Path=ViewObject.BetCount, Mode=OneWay, NotifyOnSourceUpdated=True}" VerticalAlignment="Center" 
+                           Style="{StaticResource TextBoxStyle}"/>               
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <Label Content="Баланс" Foreground="White"/>
+                <TextBox  x:Name="Balance" Margin="10,0,10,0" Width="120" Text="{Binding Path=ViewObject.Balance, Mode=OneWay, NotifyOnSourceUpdated=True}" VerticalAlignment="Center"
+                          Style="{StaticResource TextBoxStyle}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <Label Content="Потерь подряд" Foreground="White"/>
+                <TextBox  x:Name="Negative" Margin="10,0,10,0" Width="40" Text="{Binding Path=ViewObject.NegativeBets, Mode=OneWay, NotifyOnSourceUpdated=True}" VerticalAlignment="Center"
+                          Style="{StaticResource TextBoxStyle}"/>                
+            </StackPanel>
+            <Button x:Name="start" Content="{Binding Path=ViewObject.ButtonText, Mode=OneWay, NotifyOnSourceUpdated=True}" Command="{Binding Path=StartCommand}" Margin="20,0,20,0" 
+                    HorizontalAlignment="Stretch" IsEnabled="{Binding Path=ViewObject.BetsOn, Mode=OneWay, NotifyOnTargetUpdated=True}" Style="{StaticResource ButtonTemplate}"/>
+        </StackPanel>
+        
+    </Grid>
+</Window>
